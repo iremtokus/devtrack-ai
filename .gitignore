@@ -1,0 +1,23 @@
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+secrets.json
+
+# .NET generated files
+**/bin/
+**/obj/
+*.user
+*.suo
+TestResults/
+coverage/
+
+# Frontend/generated files (reserved for a later phase)
+node_modules/
+dist/
+
+# IDE and operating system
+.DS_Store
+.idea/
+.vscode/
