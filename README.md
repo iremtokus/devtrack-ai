@@ -4,6 +4,10 @@ DevTrack AI, yazılım geliştirme öğrenme sürecini roadmap, hafta ve görevl
 
 Proje, eğitim ve mezuniyet projesi kapsamında anlaşılır bir katmanlı mimari, backend doğrulaması, kullanıcı bazlı veri izolasyonu, otomatik testler ve sorumlu AI kullanımını gösterecek şekilde geliştirilmiştir.
 
+## Demo Videosu
+
+[DevTrack AI demo videosunu Google Drive'da izleyin](https://drive.google.com/file/d/1VNLAyqV8IEvsXDxroHkARU0lWc1sEaI9/view?usp=sharing).
+
 ## Temel özellikler
 
 - Kayıt, giriş ve çıkış işlemleri
