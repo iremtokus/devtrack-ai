@@ -204,6 +204,39 @@ VITE_API_BASE_URL=http://localhost:5000 npm run dev --prefix frontend
 
 Vite varsayılan olarak uygulamayı `http://localhost:5173` adresinde sunar. Development CORS yapılandırması bu origin'e izin verir.
 
+## Docker ile Çalıştırma
+
+Docker Compose; PostgreSQL, backend ve production frontend'i birlikte başlatır. Önce güvenli örnek dosyayı yerel yapılandırma olarak kopyalayın ve placeholder parola/JWT değerlerini değiştirin:
+
+```bash
+cp .env.docker.example .env.docker
+docker compose --env-file .env.docker up --build
+```
+
+Varsayılan portlarla frontend `http://localhost:8080`, backend `http://localhost:5000` adresinde açılır. Backend, Docker ağı içinde PostgreSQL'e `db:5432` üzerinden bağlanır. Veritabanı healthy olduktan sonra mevcut EF Core migration'ları idempotent olarak uygulanır; database drop/reset yapılmaz.
+
+Servisleri ve durumlarını görmek için:
+
+```bash
+docker compose --env-file .env.docker ps
+```
+
+Servisleri durdurmak için:
+
+```bash
+docker compose --env-file .env.docker down
+```
+
+Bu komut named volume içindeki PostgreSQL verisini korur. Yalnızca Docker verilerini bilinçli olarak tamamen silmek istediğinizde aşağıdaki destructive komutu kullanın:
+
+```bash
+docker compose --env-file .env.docker down --volumes
+```
+
+`--volumes` geri alınamayacak şekilde Docker veritabanı volume'unu siler; normal kapatma için kullanılmamalıdır. Yerel PostgreSQL `devtrack` veritabanı Docker volume'undan ayrıdır ve bu komut tarafından değiştirilmez.
+
+PostgreSQL kullanıcı adı veya parolası, named volume ilk kez oluşturulurken uygulanır. Volume korunurken bu değerleri `.env.docker` içinde sonradan değiştirirseniz backend bağlantı hatası alabilir; mevcut volume için ilk oluşturma değerlerini kullanın veya veriyi silmenin uygun olduğundan eminseniz yeni bir volume oluşturun.
+
 ## Testler ve kalite kontrolleri
 
 Backend solution'ı build etmek ve testleri çalıştırmak için:

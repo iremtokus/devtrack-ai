@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+node_modules/
+dist/
+.git/
+TestResults/
+coverage/
+*.user
+*.suo
+.env
+.env.*
+appsettings.Local.json
+secrets.json

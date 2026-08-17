@@ -38,6 +38,12 @@ builder.Services.AddCors(options => options.AddPolicy("frontend", policy => poli
     .WithMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")));
 builder.Services.AddProblemDetails();
 var app = builder.Build();
+if (builder.Configuration.GetValue<bool>("Database:ApplyMigrations"))
+{
+    await using var scope = app.Services.CreateAsyncScope();
+    var db = scope.ServiceProvider.GetRequiredService<DevTrackDbContext>();
+    await db.Database.MigrateAsync();
+}
 app.UseExceptionHandler(); if (app.Environment.IsDevelopment()) { app.UseSwagger(); app.UseSwaggerUI(); }
 app.UseCors("frontend"); app.UseAuthentication(); app.UseAuthorization(); app.MapControllers();
 app.MapGet("/health", () => Results.Ok(new { status = "healthy" })); app.Run();
